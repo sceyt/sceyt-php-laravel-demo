@@ -1,0 +1,26 @@
+{
+    "name": "laravel-vite-react",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {
+        "@vitejs/plugin-react": "^4.2.1",
+        "dotenv": "^16.3.1",
+        "react-beautiful-dnd": "^13.1.1",
+        "react-dom": "^18.2.0",
+        "react-responsive-modal": "^6.4.2",
+        "react-toastify": "^10.0.1",
+        "sceyt-chat": "^1.5.8",
+        "sceyt-chat-react-uikit": "^1.5.10"
+    },
+    "devDependencies": {
+        "@types/react-beautiful-dnd": "^13.1.8",
+        "@types/react-dom": "^18.2.18",
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0.0",
+        "vite": "^5.0.0"
+    }
+}
