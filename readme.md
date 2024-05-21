@@ -49,9 +49,9 @@ Follow these steps to get the project up and running.
     yarn install
     ```
 
-6. Replace the `CHAT_PRIVATE_KEY` from `.env` file with your Sceyt application's private key to properly issue chat access tokens specific to your application. For guidance on creating a Sceyt application and generating the necessary private/public keys for authentication, visit the [Sceyt documentation](https://docs.sceyt.com/chat/api/application).
+6. Replace the `SCEYT_CHAT_PRIVATE_KEY` from `.env` file with your Sceyt application's private key to properly issue chat access tokens specific to your application. For guidance on creating a Sceyt application and generating the necessary private/public keys for authentication, visit the [Sceyt documentation](https://docs.sceyt.com/chat/api/application).
 
-7. Change the the `CHAT_APP_ID` in `.env` with your Sceyt application ID.
+7. Change the the `SCEYT_CHAT_APP_ID` in `.env` with your Sceyt application ID.
 
 ```javascript
 const connectClient = (token: string) => {

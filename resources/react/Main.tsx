@@ -38,8 +38,8 @@ function Main() {
     }
 
     const connectClient = (token: string) => {
-        const { CHAT_APP_ID } = process.env;
-        const appId = CHAT_APP_ID ? CHAT_APP_ID : "dqev1ml4ld";
+        const { SCEYT_CHAT_APP_ID } = process.env;
+        const appId = SCEYT_CHAT_APP_ID ? SCEYT_CHAT_APP_ID : "dqev1ml4ld";
         const sceytClient = new SceytChatClient('https://us-ohio-api.sceyt.com', appId, Math.random()
             .toString(36)
             .substr(2, 11));

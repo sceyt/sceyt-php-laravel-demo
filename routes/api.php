@@ -15,10 +15,10 @@ Route::get('/get-token/{id?}', function ($userId = "123456") {
     ];
 
     // Retrieve the private key from the environment variables
-    $privateKey = env('CHAT_PRIVATE_KEY');
+    $privateKey = env('SCEYT_CHAT_PRIVATE_KEY');
 
     // Ensure the private key is correctly formatted by replacing \n with actual newlines
-    $formattedPrivateKey = str_replace('\n', "\n", $privateKey);
+    $formattedPrivateKey = str_replace('/n', "/n", $privateKey);
 
     // Check if the private key was successfully loaded
     if (empty($formattedPrivateKey)) {
