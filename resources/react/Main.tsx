@@ -17,7 +17,7 @@ function Main() {
     const [chatToken, setChatToken] = useState();
     const [clientState, setClientState] = useState('');
     const [client, setClient] = useState<SceytChatClient>();
-    const getToken = async () => {
+    const getToken = async () => { 
         const storedUserId = localStorage.getItem('user_id');
         let userId = '';
         if (storedUserId) {
@@ -25,21 +25,28 @@ function Main() {
         } else {
             userId = (Math.random() + 1).toString(36).substring(6);
             localStorage.setItem('user_id', userId);
-        }
-        const tokenUrl = `${window.location.origin.toString()}/api/get-token/${userId}`;
-
-        fetch(tokenUrl).then(async (tokenData) => {
-            const data = await tokenData.json()
-            setChatToken(data.chat_token)
+        } 
+        const tokenUrl = `${window.location.origin.toString()}/api/get-token/${userId}`; 
+        
+        fetch(tokenUrl).then(async (tokenData) => { 
+            if (tokenData.status == 200) {
+                const data = await tokenData.json()
+                setChatToken(data.chat_token)
+            }else{
+                console.log("`SCEYT_CHAT_PRIVATE_KEY` is not properly set in the .env file.");
+            }
         })
-            .catch((e) => {
-                console.log('error on gen token. .. ', e)
-            })
+        .catch((e) => {
+            console.log('error on gen token. .. ', e)
+        })
     }
 
     const connectClient = (token: string) => {
-        const { SCEYT_CHAT_APP_ID } = process.env;
-        const appId = SCEYT_CHAT_APP_ID ? SCEYT_CHAT_APP_ID : "dqev1ml4ld";
+        const { SCEYT_CHAT_APP_ID } = process.env; 
+        const appId = SCEYT_CHAT_APP_ID ? SCEYT_CHAT_APP_ID : "";
+        if(appId == ""){
+            console.log("`SCEYT_CHAT_APP_ID` is not properly set in the .env file.");
+        } 
         const sceytClient = new SceytChatClient('https://us-ohio-api.sceyt.com', appId, Math.random()
             .toString(36)
             .substr(2, 11));
