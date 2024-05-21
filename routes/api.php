@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Firebase\JWT\JWT;
-use Carbon\Carbon; 
+use Carbon\Carbon;
 
 Route::get('/get-token/{id?}', function ($userId = "123456") {
     $now = Carbon::now()->timestamp;
@@ -14,13 +14,23 @@ Route::get('/get-token/{id?}', function ($userId = "123456") {
         "exp" => $now + (60 * 60 * 6) // Expires in 6 hours
     ];
 
-    $privateKey = file_get_contents('../sceyt-chat-app-private-key.cer');
+    // Retrieve the private key from the environment variables
+    $privateKey = env('SCEYT_CHAT_PRIVATE_KEY');
 
-    $signOptions = [
-        'algorithm' => 'RS256'
-    ];
+    // Ensure the private key is correctly formatted by replacing \n with actual newlines
+    $formattedPrivateKey = str_replace('/n', "/n", $privateKey);
 
-    $token = JWT::encode($payload, $privateKey, 'RS256');
+    // Check if the private key was successfully loaded
+    if (empty($formattedPrivateKey)) {
+        return response()->json(['error' => 'Private key not found or improperly formatted'], 500);
+    }
+
+    try {
+        // Generate the JWT token
+        $token = JWT::encode($payload, $privateKey, 'RS256');
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Failed to encode token: ' . $e->getMessage()], 500);
+    }
 
     return response()->json(['chat_token' => $token]);
 });

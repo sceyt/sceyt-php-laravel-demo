@@ -1,19 +1,17 @@
-
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
-import 'dotenv/config';
-// import Lame from '/node_modules/lame.js';
+
+// Load environment variables from `.env` file
+import { config as dotenvConfig } from 'dotenv';
+dotenvConfig();
+
 export default defineConfig({
     resolve: {
         alias: {
             'sceyt-chat-react-uikit': '/node_modules/sceyt-chat-react-uikit/index.js'
         }
     },
-    
-    // define: {
-    //     'global.Lame': Lame  
-    // },
     build: {
         minify: process.env.APP_ENV === 'production' ? 'esbuild' : false,
         cssMinify: process.env.APP_ENV === 'production',
@@ -27,4 +25,8 @@ export default defineConfig({
         }),
         react(),
     ],
+    define: {
+        // Define environment variables to be accessible in your React components
+        'process.env': process.env
+    }
 });
