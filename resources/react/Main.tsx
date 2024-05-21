@@ -17,8 +17,7 @@ function Main() {
     const [chatToken, setChatToken] = useState();
     const [clientState, setClientState] = useState('');
     const [client, setClient] = useState<SceytChatClient>();
-
-    const getToken = async () => { 
+    const getToken = async () => {
         const storedUserId = localStorage.getItem('user_id');
         let userId = '';
         if (storedUserId) {
@@ -26,9 +25,9 @@ function Main() {
         } else {
             userId = (Math.random() + 1).toString(36).substring(6);
             localStorage.setItem('user_id', userId);
-        } 
-        const tokenUrl = `${window.location.origin.toString()}/api/get-token/${userId}`; 
-        
+        }
+        const tokenUrl = `${window.location.origin.toString()}/api/get-token/${userId}`;
+
         fetch(tokenUrl).then(async (tokenData) => {
             const data = await tokenData.json()
             setChatToken(data.chat_token)
@@ -39,7 +38,8 @@ function Main() {
     }
 
     const connectClient = (token: string) => {
-        const appId = 'dqev1ml4ld';
+        const { CHAT_APP_ID } = process.env;
+        const appId = CHAT_APP_ID ? CHAT_APP_ID : "dqev1ml4ld";
         const sceytClient = new SceytChatClient('https://us-ohio-api.sceyt.com', appId, Math.random()
             .toString(36)
             .substr(2, 11));
